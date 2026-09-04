@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #070a12;
+  --color-ink-900: #0b0f1a;
+  --color-ink-850: #101624;
+  --color-ink-800: #131a28;
+  --color-ink-700: #1c2434;
+  --color-ink-600: #2a3446;
+  --color-ink-400: #64748b;
+  --color-ink-300: #94a3b8;
+  --color-ink-200: #cbd5e1;
+  --color-brand-400: #7aa2ff;
+  --color-brand-500: #4f7dfb;
+  --color-brand-600: #3358e8;
+  --font-sans: "Noto Sans KR", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #070a12;
+  color: #e6ebf5;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-image:
+    radial-gradient(900px 500px at 12% -8%, rgba(79, 125, 251, 0.18), transparent 60%),
+    radial-gradient(760px 460px at 92% 4%, rgba(168, 85, 247, 0.14), transparent 62%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(79, 125, 251, 0.35);
+}
+
+/* ---- 공통 UI 프리미티브 ---- */
+@layer components {
+  .surface {
+    @apply rounded-2xl border border-white/10 bg-white/[0.035] backdrop-blur-sm;
+  }
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-black/30 px-3.5 py-2.5 text-sm text-slate-100
+      placeholder:text-slate-500 outline-none transition
+      focus:border-brand-500/70 focus:ring-2 focus:ring-brand-500/25;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold tracking-wide text-slate-300;
+  }
+  .hint {
+    @apply mt-1 text-xs leading-relaxed text-slate-500;
+  }
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm
+      font-semibold transition disabled:cursor-not-allowed disabled:opacity-45;
+  }
+  .btn-primary {
+    @apply bg-brand-500 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-400
+      hover:text-ink-950 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply border border-white/[0.12] bg-white/[0.04] text-slate-200 hover:bg-white/[0.09] active:scale-[0.98];
+  }
+  .btn-quiet {
+    @apply px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/[0.07] hover:text-slate-100;
+  }
+  .btn-danger {
+    @apply border border-rose-500/30 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20;
+  }
+  .chip {
+    @apply rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 text-[11px] font-medium text-slate-300;
+  }
+  .seg {
+    @apply cursor-pointer rounded-lg border px-3 py-2 text-xs font-medium transition;
+  }
+  .seg-on {
+    @apply border-brand-500/70 bg-brand-500/15 text-white;
+  }
+  .seg-off {
+    @apply border-white/10 bg-black/25 text-slate-400 hover:border-white/25 hover:text-slate-200;
+  }
+}
+
+input[type="range"] {
+  @apply h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/15;
+}
+input[type="range"]::-webkit-slider-thumb {
+  @apply h-4 w-4 appearance-none rounded-full bg-brand-400 shadow;
+}
+input[type="color"] {
+  @apply h-9 w-full cursor-pointer rounded-lg border border-white/10 bg-transparent p-1;
+}
+
+/* 스크롤바 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  animation: shimmer 1.6s infinite;
+}
